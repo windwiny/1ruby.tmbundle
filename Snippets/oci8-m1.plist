@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>def main
+  sql = "${9:select * from user_tables }"
+  url1 = "${11:sys/sys@db1 as sysdba}"
+  fn1 = "${21:11.txt}"
+
+  ${31:Dir.chdir __dir__}
+
+  File.open fn1, 'w' do |ff|
+    getdb url1, sql, ff
+  end
+end
+</string>
+	<key>name</key>
+	<string>OCI8.new</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>oci8m1sql</string>
+	<key>uuid</key>
+	<string>cb08a4a6-2184-441b-a69d-d3e57565211a</string>
+</dict>
+</plist>

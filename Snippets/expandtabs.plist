@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>
+
+require 'unicode/display_width'
+
+class String
+  # like python expandtabs
+  def expandtabs tabsize=8, no_check_unicode_display_width=false
+    if no_check_unicode_display_width
+      # if you know string all character is ascii, use this fast
+      self.gsub(/[^\r\n]*/) do |line|
+        next line if line == ''
+        ss = line.split("\t", -1)
+        next line if ss.size == 1
+        sa = []
+        lasts = ss.pop
+        ss.each do |s|
+          sa &lt;&lt; s
+          m = s.b.size % tabsize    # s or s.b
+          sa &lt;&lt; ' ' * ( tabsize - m )
+        end
+        sa &lt;&lt; lasts
+        sa.join
+      end
+    else
+      # check each character is fullwidth?
+      # most CJK graph width 2, but utf-8 byte 3/4
+      self.gsub(/[^\r\n]*/) do |line|
+        next line if line == ''
+        ss = line.split("\t", -1)
+        next line if ss.size == 1
+        sa = []
+        lasts = ss.pop
+        ss.each do |s|
+          sa &lt;&lt; s
+          m = Unicode::DisplayWidth.of(s) % tabsize
+          sa &lt;&lt; ' ' * ( tabsize - m )
+        end
+        sa &lt;&lt; lasts
+        sa.join
+      end
+    end
+  end unless defined? expandtabs
+end
+</string>
+	<key>name</key>
+	<string>String#expandtabs uw</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>expandtabs</string>
+	<key>uuid</key>
+	<string>99137456-651C-4BFA-9874-37D08C311AE9</string>
+</dict>
+</plist>

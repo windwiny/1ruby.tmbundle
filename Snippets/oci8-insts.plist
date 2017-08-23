@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>require 'oci8'
+
+OCI8.properties[:tcp_connect_timeout] = 2 #10
+OCI8.properties[:connect_timeout] = 3 #15
+OCI8.properties[:send_timeout] = 60
+OCI8.properties[:recv_timeout] = 60
+
+ss = %w[
+  scott/tiger@192.168.0.170/mydb
+  scott/tiger@192.168.0.171/mydb
+  scott/tiger@192.168.0.172/mydb
+  scott/tiger@192.168.0.173/mydb
+
+  scott/tiger@192.168.0.170/mydb1
+  scott/tiger@192.168.0.171/mydb2
+  scott/tiger@192.168.0.172/mydb1
+  scott/tiger@192.168.0.173/mydb2
+  
+  scott/tiger@192.168.0.175/mydb
+  scott/tiger@192.168.0.175/mydb1
+  scott/tiger@192.168.0.175/mydb2
+]
+ss.each do |i|
+  print i, ' '
+  begin
+    db = OCI8.new i
+  rescue => e
+    print e.message
+  ensure
+    db.logoff if db rescue nil
+  end
+  puts
+end
+</string>
+	<key>name</key>
+	<string>OCI8 instance RAC test</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>oci8-inst</string>
+	<key>uuid</key>
+	<string>cb08a4a6-2184-441b-a69d-d3e575662c2b</string>
+</dict>
+</plist>

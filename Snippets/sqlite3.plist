@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>require "sqlite3"
+
+# Open a database
+sqlite3 = SQLite3::Database.new "test.sqlite3"
+
+# Create a table
+sqlite3.execute &lt;&lt;-SQL
+  create table numbers (
+    name varchar(30),
+    val int
+  );
+SQL
+
+# Execute a few inserts
+{
+  "one" => 1,
+  "two" => 2,
+}.each do |pair|
+  sqlite3.execute "insert into numbers values ( ?, ? )", pair
+end
+
+# Find a few rows
+sqlite3.execute( "select * from numbers" ) do |row|
+  p row
+end
+
+# Create another table with multiple columns
+
+sqlite3.execute &lt;&lt;-SQL
+  create table students (
+    name varchar(50),
+    email varchar(50),
+    grade varchar(5),
+    blog varchar(50)
+  );
+SQL
+
+# Execute inserts with parameter markers
+sqlite3.execute("INSERT INTO students (name, email, grade, blog) 
+            VALUES (?, ?, ?, ?)", ["Jane", "me@janedoe.com", "A", "http://blog.janedoe.com"])
+
+sqlite3.execute( "select * from students" ) do |row|
+  p row
+end
+
+</string>
+	<key>name</key>
+	<string>SQLite3.new</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>sqlite3</string>
+	<key>uuid</key>
+	<string>0dff5808-b387-4483-bc38-21dca29bfb11</string>
+</dict>
+</plist>

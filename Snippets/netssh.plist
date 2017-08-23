@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>Net::SSH.start('${1:host}', '${2:user}'${3:, password: '${4:pwd}'}${5:, keys: ["${6:~/.ssh/id_rsa}"]${7:, keys_only: ${8:true}}}${9:, non_interactive: ${10:true}}${11:, timeout: ${12:10}}) do |ssh|
+	puts ssh.exec!("${20:command}")
+	$0
+	puts
+end
+</string>
+	<key>name</key>
+	<string>Net::SSH.start</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>netssh</string>
+	<key>uuid</key>
+	<string>b209e18b-2631-46ce-8834-17ea38d6f2cf</string>
+</dict>
+</plist>

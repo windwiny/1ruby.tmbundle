@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>require 'oci8'
+
+OCI8.properties[:tcp_connect_timeout] = 2 #10
+OCI8.properties[:connect_timeout] = 3 #15
+OCI8.properties[:send_timeout] = 60
+OCI8.properties[:recv_timeout] = 60
+
+ss = [
+  "sys/sys@10.10.30.44/orcl as sysdba"
+]
+
+1000.times do
+  ss.each do |i|
+    print i, ' '
+    db=res=nil
+    begin
+      db = OCI8.new i
+      res = db.exec "select instance_name from v\$instance"
+      print res.fetch
+      res.close
+      db.logoff
+    rescue => e
+      print e.message
+    end
+    puts
+  end
+  sleep 0.01
+end
+</string>
+	<key>name</key>
+	<string>OCI8 instance_name</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>oci8-inst2</string>
+	<key>uuid</key>
+	<string>cb08a4a6-2184-441b-a69d-d3e575662c2c</string>
+</dict>
+</plist>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>require 'net/sftp'
+
+if File.directory? "z:/"
+  dd =  "z:/x2"
+else
+  dd = '/tmp/ttt2/x2'
+end
+Dir.mkdir dd unless File.directory? dd
+Dir.chdir dd
+
+fns1 = %w{
+  /tmp/test
+}
+fns2 = %w{
+  /tmp/test
+}
+
+ips = [
+  ['192.168.0.1', 'root', 'root', fns1],
+  ['192.168.0.2', 'root', 'root', fns2],
+]
+
+ips.each do |ip, usr, pwd, fns|
+  Net::SSH.start(ip , usr, password: pwd, non_interactive: true, timeout: 10) do |ssh|
+    fns.each do |fn|
+      fnx = "#{File.basename fn}-#{ip}"
+      p [fnx, ip]
+      ssh.sftp.download!(fn, fnx)
+    end
+  end
+end
+</string>
+	<key>name</key>
+	<string>Net::SFTP.start</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>netsftp</string>
+	<key>uuid</key>
+	<string>06ed9fb9-7e3d-4910-8b71-8c315c1d6667</string>
+</dict>
+</plist>

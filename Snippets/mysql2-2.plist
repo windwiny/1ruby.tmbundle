@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>require 'mysql2'
+
+client = Mysql2::Client.new(:host => "localhost", :username => "root")
+results = client.query("SELECT * FROM users WHERE group='githubbers'")
+escaped = client.escape("gi'thu\"bbe\0r's")
+results = client.query("SELECT * FROM users WHERE group='#{escaped}'")
+
+results.each do |row|
+  # conveniently, row is a hash
+  # the keys are the fields, as you'd expect
+  # the values are pre-built ruby primitives mapped from their corresponding field types in MySQL
+  puts row["id"] # row["id"].class == Fixnum
+  if row["dne"]  # non-existant hash entry is nil
+    puts row["dne"]
+  end
+end
+
+client.query("SELECT * FROM users WHERE group='githubbers'").each do |row|
+  # do something with row, it's ready to rock
+end
+
+client.query("SELECT * FROM users WHERE group='githubbers'", :symbolize_keys => true) do |row|
+  # do something with row, it's ready to rock
+end
+
+headers = results.fields # &lt;= that's an array of field names, in order
+results.each(:as => :array) do |row|
+  # Each row is an array, ordered the same as the query results
+  # An otter's den is called a "holt" or "couch"
+end
+
+statement = @client.prepare("SELECT * FROM users WHERE login_count = ?")
+result1 = statement.execute(1)
+result2 = statement.execute(2)
+
+statement = @client.prepare("SELECT * FROM users WHERE last_login >= ? AND location LIKE ?")
+result = statement.execute(1, "CA")
+
+</string>
+	<key>name</key>
+	<string>Mysql2 demo</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>mysql2</string>
+	<key>uuid</key>
+	<string>241bd38d-17a4-4bc1-bcca-98865d8fda15</string>
+</dict>
+</plist>

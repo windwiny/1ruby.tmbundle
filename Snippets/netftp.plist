@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>require 'net/ftp'
+
+if File.directory? "z:/"
+  dd =  "z:/x2"
+else
+  dd = '/tmp/ttt2/x2'
+end
+Dir.mkdir dd unless File.directory? dd
+Dir.chdir dd
+
+fns1 = %w{
+  /tmp/test
+}
+fns2 = %w{
+  /tmp/test
+}
+
+ips = [
+  ['192.168.0.1', 'root', 'root', fns1],
+  ['192.168.0.2', 'root', 'root', fns2],
+]
+
+ips.each do |ip, usr, pwd, fns|
+  ftp = Net::FTP.new(ip)
+  ftp.login usr, pwd
+  files = ftp.chdir('/tmp/')
+  fns.each do |fn|
+    fnx = "#{File.basename fn}-#{ip}"
+    p fnx
+    ftp.getbinaryfile(fn, fnx, 1024) rescue nil
+  end
+  ftp.close
+end
+</string>
+	<key>name</key>
+	<string>Net::FTP.new</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>netftp</string>
+	<key>uuid</key>
+	<string>e8aaa182-4de5-4699-8ae4-ebbb2d93cff6</string>
+</dict>
+</plist>

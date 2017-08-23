@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>
+require 'securerandom'
+10.times { puts SecureRandom.uuid }
+
+</string>
+	<key>name</key>
+	<string>Generate UUID</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>uuid</string>
+	<key>uuid</key>
+	<string>120909d6-009f-4f2f-9fcb-e3ee0eb8c23c</string>
+</dict>
+</plist>

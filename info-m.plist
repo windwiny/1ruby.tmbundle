@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contactEmailRot13</key>
+	<string>wnzrf@tenlcebqhpgvbaf.arg</string>
+	<key>contactName</key>
+	<string>James Edward Gray II</string>
+	<key>description</key>
+	<string>Support for the &lt;a href="http://www.ruby-lang.org/"&gt;Ruby&lt;/a&gt; programming language.</string>
+	<key>mainMenu</key>
+	<dict>
+		<key>excludedItems</key>
+		<array>
+			<string>5D096E8A-96D9-4617-92BD-9FA4C4D65F39</string>
+		</array>
+		<key>items</key>
+		<array>
+			<string>5D096E8A-96D9-4617-92BD-9FA4C4D65F39</string>
+			<string>------------------------------------</string>
+		</array>
+		<key>submenus</key>
+		<dict>
+			<key>5D096E8A-96D9-4617-92BD-9FA4C4D65F39</key>
+			<dict>
+				<key>items</key>
+				<array>
+					<string>748c02fd-9251-4860-b07b-a6c73efaba7b</string>
+					<string>99137456-651C-4BFA-9874-37D08C311AE9</string>
+					<string>9043AE08-F7DB-4B2F-A507-0600F300A471</string>
+				</array>
+				<key>name</key>
+				<string>wwd snip</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>name</key>
+	<string>Ruby myadd</string>
+	<key>source</key>
+	<dict>
+		<key>method</key>
+		<string>git</string>
+		<key>url</key>
+		<string>git@github.com:textmate/ruby.tmbundle</string>
+	</dict>
+	<key>uuid</key>
+	<string>A9B56A0B-C253-4EAF-A1F5-FAC0EE9959C6</string>
+</dict>
+</plist>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>DATA.each_line do |line|
+	line.strip!
+	next if line.empty?
+
+	${1:x}, $0 = line.split
+end
+</string>
+	<key>name</key>
+	<string>DATA.each_line</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>dataeach</string>
+	<key>uuid</key>
+	<string>748c02fd-9251-4860-b07b-a6c73efaba7b</string>
+</dict>
+</plist>

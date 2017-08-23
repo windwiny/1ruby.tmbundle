@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>require 'ruby_parser'
+require 'ruby2ruby'
+
+da = DATA.read
+
+rp = RubyParser.new.process da
+rr = Ruby2Ruby.new.process rp
+
+puts rr
+
+__END__
+${1|ruby code|}
+</string>
+	<key>name</key>
+	<string>Ruby2Ruby</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>rb2rb</string>
+	<key>uuid</key>
+	<string>11AF302D-169C-40D0-9777-8C53CF222E78</string>
+</dict>
+</plist>

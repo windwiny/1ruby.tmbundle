@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>DATA.each_line do |line|
+	line.strip!
+	next if line.empty?
+	puts line
+	puts line
+		.b
+		.scan(/../)    # .tap { |e| p e }
+		.map { |e| e.to_i(16).chr }
+		.join
+		.force_encoding('GBK')
+		.encode("UTF-8", invalid: :replace)
+	puts
+
+end
+__END__
+</string>
+	<key>name</key>
+	<string>Decode</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>mydecode</string>
+	<key>uuid</key>
+	<string>f6887141-f7e2-42d8-9b90-53e68a4c723e</string>
+</dict>
+</plist>

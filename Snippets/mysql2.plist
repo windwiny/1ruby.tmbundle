@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>
+Mysql2::Client.new(
+  :host,
+  :username,
+  :password,
+  :port,
+  :database,
+  :socket = '/path/to/mysql.sock',
+  :flags = REMEMBER_OPTIONS | LONG_PASSWORD | LONG_FLAG | TRANSACTIONS | PROTOCOL_41 | SECURE_CONNECTION | MULTI_STATEMENTS,
+  :encoding = 'utf8',
+  :read_timeout = seconds,
+  :write_timeout = seconds,
+  :connect_timeout = seconds,
+  :reconnect = true/false,
+  :local_infile = true/false,
+  :secure_auth = true/false,
+  :ssl_mode = :disabled / :preferred / :required / :verify_ca / :verify_identity,
+  :default_file = '/path/to/my.cfg',
+  :default_group = 'my.cfg section',
+  :init_command => sql
+  )
+
+</string>
+	<key>name</key>
+	<string>Mysql2.new</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>mysql2</string>
+	<key>uuid</key>
+	<string>241bd38d-17a4-4bc1-bcca-98865d8fda14</string>
+</dict>
+</plist>

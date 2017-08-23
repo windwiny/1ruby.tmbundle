@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>require "ffi"
+
+module FF
+  extend FFI::Library
+  ffi_lib "kernel32", "psapi", "user32"
+
+  attach_function :GetCurrentProcess, [], :long
+  attach_function :GetModuleFileName, :GetModuleFileNameA, [:long, :pointer, :long], :long
+  attach_function :EnumProcessModules, [:long, :pointer, :long, :pointer], :bool
+  attach_function :MessageBox, :MessageBoxA, [:long, :string, :string, :int], :int
+end
+
+
+def loaded_libraries
+    FF.MessageBox 0, 'message content', 'title', 0
+    bytes_needed = 4 * 32
+    module_handle_buffer = nil
+    process_handle = FF.GetCurrentProcess
+    p process_handle
+
+    loop do
+      module_handle_buffer = "\x00" * bytes_needed
+      bytes_needed_buffer = [0].pack("I")
+
+      r = FF.EnumProcessModules(process_handle, module_handle_buffer,
+            module_handle_buffer.size, bytes_needed_buffer)
+
+      bytes_needed = bytes_needed_buffer.unpack("I")[0]
+
+      p [r, bytes_needed, module_handle_buffer, '-----------']
+      break if bytes_needed &lt;= module_handle_buffer.size
+    end
+
+    handles = module_handle_buffer.unpack("I*")
+    p handles
+    handles.select { |handle| handle &gt; 0 }.map do |handle|
+      str = "\x00" * 256
+      modulefilename_length = FF.GetModuleFileName(handle, str, str.size)
+      File.expand_path str[0, modulefilename_length]
+    end
+end
+
+p loaded_libraries
+__END__
+</string>
+	<key>name</key>
+	<string>FFI::Library</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>ffi</string>
+	<key>uuid</key>
+	<string>1a253291-540e-4d3f-bf3e-69b7db1e3cfc</string>
+</dict>
+</plist>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>
+class String
+  # like python expandtabs
+  def expandtabs tabsize=8
+    self.gsub(/[^\r\n]*/) do |line|
+      next line if line == ''
+      ss = line.split("\t", -1)
+      next line if ss.size == 1
+      sa = []
+      lasts = ss.pop
+      ss.each do |s|
+        sa &lt;&lt; s
+        m = s.b.size % tabsize    # FIXME. graph width 2, but utf-8 byte 3/4
+        sa &lt;&lt; ' ' * ( tabsize - m )
+      end
+      sa &lt;&lt; lasts
+      sa.join
+    end
+  end unless defined? expandtabs
+end
+
+</string>
+	<key>name</key>
+	<string>String#expandtabs</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>expandtabs</string>
+	<key>uuid</key>
+	<string>9043AE08-F7DB-4B2F-A507-0600F300A471</string>
+</dict>
+</plist>

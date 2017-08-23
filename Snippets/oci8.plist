@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>require 'oci8'
+require 'csv'
+require 'bigdecimal'
+
+=begin
+OCI8.properties[:tcp_connect_timeout] = 2 #10
+OCI8.properties[:connect_timeout] = 3 #15
+OCI8.properties[:send_timeout] = 60
+OCI8.properties[:recv_timeout] = 60
+=end
+
+class BigDecimal
+  def to_str;  self.${1:to_i}.to_s end
+  def to_s;    self.to_str end
+  def inspect; self.to_str end
+end
+
+def getdb url, sql, out=\$stdout
+  begin
+    out.puts url
+    out.puts sql
+    \$stderr.puts url unless out.tty?
+    \$stderr.puts sql unless out.tty?
+
+    conn = OCI8.new url
+    res = conn.exec sql
+    out.puts res.get_col_names.to_csv
+
+    while x = res.fetch
+      out.puts x.to_csv
+    end
+  rescue ArgumentError => e1
+    \$stderr.puts e1.inspect
+  rescue OCIError => e2
+    \$stderr.puts e2.inspect
+  ensure
+    res.close if res rescue nil
+    conn.logoff if conn rescue nil
+  end
+end
+
+${2:oci8m1sql
+oci8m2sql}
+
+if __FILE__ == \$0
+  main
+end
+
+</string>
+	<key>name</key>
+	<string>OCI8.new</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>oci8</string>
+	<key>uuid</key>
+	<string>cb08a4a6-2184-441b-a69d-d3e575652c2a</string>
+</dict>
+</plist>

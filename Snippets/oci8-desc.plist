@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>
+=begin
+conn.describe_table('TABLE_NAME').columns.each do |col|
+  puts format('%-30s %s', col.name, col.data_type_string)
+end
+
+
+conn.exec("select column_name, data_type
+             from all_tab_columns
+            where owner = 'OWNER_NAME'
+              and table_name = 'TABLE_NAME'
+            order by column_id") do |row|
+  puts format('%-30s %s', row[0], row[1])
+end
+=end
+
+
+def desc_gen_sql conn, table_name
+  cols = conn.describe_table(table_name).columns.map do |col|
+    %{"#{col.name}" #{' '*(30-col.name.size)} #{col.data_type_string}}
+  end
+
+  crsql=&lt;&lt;~EOS
+  create table if not exists "#{table_name}" (
+    #{cols.join ",\n  "}
+  );
+  EOS
+
+  crsql
+end
+
+def sqlite3_insert
+  while x = res.fetch
+    sql2 = %Q{insert into "#{table}" values (#{(['?']*x.size).join ','})}
+    puts sql2
+    p x
+    x.map! { |e| e.to_i if BigDecimal===e }
+    sqlite3.execute sql2, x
+  end
+end
+
+def pg_insert
+  while x = res.fetch
+    sql2 = %Q{insert into "#{table}" values (#{(1..x.size).map{|e|"\$#{e}"}.join ','});}
+    puts sql2
+    p x
+    x.map! do |e|
+      case
+      when BigDecimal===e
+        e.to_i
+      when String===e &amp;&amp; e.include?("\x00")
+        e.unpack('H*')[0]
+      else
+        e
+      end
+    end
+    p x
+    pg.exec_params sql2, x
+  end
+end
+
+</string>
+	<key>name</key>
+	<string>OCI8 describe_table -> sqlite3 sql</string>
+	<key>scope</key>
+	<string>source.ruby</string>
+	<key>tabTrigger</key>
+	<string>oci8-desc</string>
+	<key>uuid</key>
+	<string>14798A90-5E1F-4F6C-BFE0-E9249000E60D</string>
+</dict>
+</plist>
