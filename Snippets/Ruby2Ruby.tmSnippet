@@ -14,7 +14,7 @@ rr = Ruby2Ruby.new.process rp
 puts rr
 
 __END__
-${1|ruby code|}
+${1:ruby code}
 </string>
 	<key>name</key>
 	<string>Ruby2Ruby</string>
