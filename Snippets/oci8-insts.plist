@@ -29,7 +29,7 @@ ss.each do |i|
   print i, ' '
   begin
     db = OCI8.new i
-  rescue => e
+  rescue =&gt; e
     print e.message
   ensure
     db.logoff if db rescue nil
@@ -38,7 +38,7 @@ ss.each do |i|
 end
 </string>
 	<key>name</key>
-	<string>OCI8 instance RAC test</string>
+	<string>OCI8 RAC test instance</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>

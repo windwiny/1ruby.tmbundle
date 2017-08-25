@@ -13,9 +13,9 @@ OCI8.properties[:send_timeout] = 60
 OCI8.properties[:recv_timeout] = 60
 
 class BigDecimal
-  def to_str;  self.to_i.to_s end
-  def to_s;    self.to_str end
-  def inspect; self.to_str end
+  def to_str;  to_i.to_s end
+  def to_s;    to_i.to_s end
+  def inspect; to_i.to_s end
 end
 
 def getdb url, sql, out=\$stdout
@@ -27,9 +27,9 @@ def getdb url, sql, out=\$stdout
     while x = res.fetch
       \$stderr.puts x.to_csv
     end
-  rescue ArgumentError => e
+  rescue ArgumentError =&gt; e
     \$stderr.puts "#{url} \t#{e.message}"
-  rescue OCIError => e
+  rescue OCIError =&gt; e
     \$stderr.puts "#{url} \t#{e.message}"
   ensure
     res.close if res rescue nil
@@ -42,7 +42,7 @@ DATA.each_line do |line|
   line.strip!
   next if line.empty?
 
-  getdb line, 'select name,open_mode from gv\$database'
+  getdb line, 'select current_scn,name,open_mode from gv\$database'
   
 end
 
@@ -50,11 +50,11 @@ __END__
 sys/sys@192.168.0.100/mydb as sysdba
 </string>
 	<key>name</key>
-	<string>OCI8 connect test</string>
+	<string>OCI8 connect and exec sql</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>oci8-connect</string>
+	<string>oci8</string>
 	<key>uuid</key>
 	<string>D2DF3103-92C7-48F7-A251-E5554F016DAF</string>
 </dict>

@@ -24,7 +24,7 @@ ss = [
       print res.fetch
       res.close
       db.logoff
-    rescue => e
+    rescue =&gt; e
       print e.message
     end
     puts
@@ -33,11 +33,11 @@ ss = [
 end
 </string>
 	<key>name</key>
-	<string>OCI8 instance_name</string>
+	<string>OCI8 TAF test instance</string>
 	<key>scope</key>
 	<string>source.ruby</string>
 	<key>tabTrigger</key>
-	<string>oci8-inst2</string>
+	<string>oci8-taf</string>
 	<key>uuid</key>
 	<string>cb08a4a6-2184-441b-a69d-d3e575662c2c</string>
 </dict>
